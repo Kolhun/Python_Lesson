@@ -17,3 +17,16 @@ class Kia(Car):
 
     def horse_powers(self):
         return 120
+
+car = Car()
+nissan = Nissan()
+kia = Kia()
+
+print(car.price)
+print(car.horse_powers())
+
+print(nissan.price)
+print(nissan.horse_powers())
+
+print(kia.price)
+print(kia.horse_powers())  
