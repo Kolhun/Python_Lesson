@@ -29,4 +29,4 @@ print(nissan.price)
 print(nissan.horse_powers())
 
 print(kia.price)
-print(kia.horse_powers())  
+print(kia.horse_powers())
