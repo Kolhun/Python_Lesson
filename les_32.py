@@ -12,7 +12,7 @@ class EvenNumbers:
             raise StopIteration
         else:
             result = self.current
-            self.current += 2 
+            self.current += 2
             return result
 
 # Пример использования
