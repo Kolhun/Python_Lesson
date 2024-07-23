@@ -1,10 +1,17 @@
 import pandas as pd
 
-# Создать DataFrame (для удобной работы с табличными данными)
-data = {'Name': ['Alice', 'Bob', 'Charlie', 'David'],
-        'Age': [25, 30, 35, 40],
-        'City': ['New York', 'Los Angeles', 'Chicago', 'Houston']}
-df = pd.DataFrame(data)
+# Создание словаря
+data = {
+    'name': 'Иван',
+    'id': '001',
+    'param': 'значение'
+}
 
-# Вывод DataFrame
-print(df)
+# Запись словаря в файл в формате JSON
+with open('data.json', 'w') as file:
+    file.write(pd.Series(data).to_json())
+
+# Загрузка данных из файла и отображение в консоли с использованием dump(2)
+with open('data.json', 'r') as file:
+    loaded_data = pd.read_json(file.read(), typ='series')
+    print(loaded_data.to_json(orient='index', indent=2))
