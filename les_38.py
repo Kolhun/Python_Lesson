@@ -13,7 +13,7 @@ class Cafe:
 
     def customer_arrival(self):
         customer_number = 1
-        while True:
+        while customer_number <= 15:
             time.sleep(1)
             print(f"Посетитель номер {customer_number} прибыл.")
             customer = Customer(customer_number, self)
