@@ -1,9 +1,9 @@
 import multiprocessing
 
-
 class WarehouseManager:
     def __init__(self):
-        self.data = {}
+        manager = multiprocessing.Manager()
+        self.data = manager.dict()
 
     def process_request(self, request):
         action, product, quantity = request
@@ -25,14 +25,14 @@ class WarehouseManager:
         for process in processes:
             process.join()
 
+if __name__ == "__main__":
+    _requests = [
+        ("receipt", "product1", 10),
+        ("shipment", "product1", 5),
+        ("receipt", "product2", 20),
+        ("shipment", "product2", 15),
+    ]
 
-_requests = [
-    ("receipt", "product1", 10),
-    ("shipment", "product1", 5),
-    ("receipt", "product2", 20),
-    ("shipment", "product2", 15),
-]
-
-manager = WarehouseManager()
-manager.run(_requests)
-print(manager.data)
+    manager = WarehouseManager()
+    manager.run(_requests)
+    print(manager.data)
