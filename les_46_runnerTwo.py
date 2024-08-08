@@ -31,7 +31,7 @@ class Tournament:
         finishers = {}
         place = 1
         while self.participants:
-            for participant in self.participants[:]:  # Используем копию списка для итерации
+            for participant in self.participants[:]: 
                 participant.run()
                 if participant.distance >= self.full_distance:
                     finishers[place] = participant
