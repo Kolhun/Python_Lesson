@@ -5,7 +5,7 @@ from aiogram.types import Message
 import asyncio
 import logging
 import sys
-import config
+import config_private as config
 
 api = config.TOKEN
 bot = Bot(token=api)
