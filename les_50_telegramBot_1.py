@@ -15,12 +15,12 @@ dp = Dispatcher(storage=storage)
 
 @dp.message(CommandStart())
 async def start_message(message: Message):
-    await message.answer(f"Привет, <b>{message.from_user.full_name}</b>!", parse_mode="HTML")
+    await message.answer(f"Привет, <b>{message.from_user.full_name}</b>! Я бот помогающий твоему здоровью", parse_mode="HTML")
 
 
 @dp.message()
 async def all_message(message: types.Message):
-    print(f"Мы получили сообщение - {message.text}")
+    await message.answer("Введите команду /start, чтобы начать общение")
 
 
 async def on_startup():
