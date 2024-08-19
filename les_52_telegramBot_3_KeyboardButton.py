@@ -49,13 +49,20 @@ async def menu_handler(message: types.Message):
     await message.answer("Выберите опцию:", reply_markup=reply_kb.as_markup(resize_keyboard=True))
 
 
-@dp.message()
+@dp.message(F.text == "Рассчитать")
 async def check_message(message: types.Message, state: FSMContext):
-    if message.text == "Информация":
-        await message.answer("Информация о боте")
-    elif message.text == "Рассчитать":
-        await message.answer("Сколько тебе лет?")
-        await state.set_state(UserState.age)
+    # if message.text == "Информация":
+    #     await message.answer("Информация о боте")
+    # elif message.text == "Рассчитать":
+    #     await message.answer("Сколько тебе лет?")
+    #     await state.set_state(UserState.age)
+    await state.set_state(UserState.age)
+    await message.answer("Сколько тебе лет?")
+
+
+@dp.message(F.text == "Информация")
+async def check_message(message: types.Message, state: FSMContext):
+    await message.answer("Информация о боте")
 
 
 @dp.message(UserState.age)
