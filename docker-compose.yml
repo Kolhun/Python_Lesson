@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  db_auth:
+    image: postgres:alpine
+    container_name: lessBeginSQL
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=postgres
