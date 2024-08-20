@@ -33,11 +33,31 @@ try:
     print("Таблица создана успешно!")
 except psycopg2.Error as e:
     print(f"Ошибка выполнения запроса: {e}")
+# for i in range(30):
+#     cur.execute("""
+#             insert into "USER" (username, email, age) values (%s, %s, %s)
+#     """, (f"newuser_{i}", f"sdfsd_{i}@mail.ru", str(random.randint(18, 50))))
 for i in range(30):
+    username = f"newuser_{i}"
+    email = f"sdfsd_{i}@mail.ru"
+    age = random.randint(18, 50)
+
     cur.execute("""
-            insert into "USER" (username, email, age) values (%s, %s, %s)
-    """, (f"newuser_{i}", f"sdfsd_{i}@mail.ru", str(random.randint(18, 50))))
+        INSERT INTO "USER" (username, email, age)
+        SELECT %s, %s, %s
+        WHERE NOT EXISTS (
+            SELECT 1 FROM "USER" WHERE username = %s
+        )
+    """, (username, email, age, username))
 cur.execute("""UPDATE "USER" SET age = %s WHERE username = %s""", (28, "newuser_12"))
+cur.execute("""DELETE FROM "USER" WHERE username=%s""", ("newuser_14",))
+cur.execute("""SELECT * FROM "USER" """)
+cur.execute("""SELECT username, age FROM "USER" WHERE age > 20""")
+cur.execute("""SELECT username, age FROM "USER" GROUP BY age, username""")
+cur.execute("""SELECT username, age FROM "USER" ORDER BY age ASC""")
+users = cur.fetchall()
+for user in users:
+    print(f"Пользователь: {user}")
 conn.commit()
 cur.close()
 conn.close()
