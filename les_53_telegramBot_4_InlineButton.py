@@ -8,7 +8,7 @@ from aiogram import F
 import asyncio
 import logging
 import sys
-import config_private as config
+import config as config
 
 api = config.TOKEN
 bot = Bot(token=api)
