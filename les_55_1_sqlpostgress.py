@@ -21,14 +21,26 @@ except psycopg2.Error as e:
 
 cur = conn.cursor()
 
-cur.execute("""SELECT COUNT(*) FROM "USER" WHERE age>20""")
+#cur.execute("""SELECT COUNT(*) FROM "USER" WHERE age>20""")
+# total1 = cur.fetchone()[0]
+# total2 = cur.fetchall()
+# print(total1)
+# print(total2)
+
+# cur.execute("""SELECT SUM(age) FROM "USER" """)
+# total_first_sum = cur.fetchone()[0]
+# cur.execute("""SELECT COUNT(*) FROM "USER" """)
+# total_second_sum = cur.fetchone()[0]
+# print(total_first_sum/total_second_sum)
+
+cur.execute("""SELECT MAX(age) FROM "USER" """)
+total_data = cur.fetchone()[0]
+print(total_data)
 
 # users = cur.fetchall()
 # for user in users:
 #     print(f"Пользователь: {user}")
 
-total1 = cur.fetchone()[0]
-total2 = cur.fetchall()
 
 conn.commit()
 cur.close()
