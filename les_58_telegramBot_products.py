@@ -47,7 +47,6 @@ async def populate_products(pool: asyncpg.Pool):
             ('Продукт 4', 'Описание продукта 4', 400),
         ]
 
-        # Проверяем наличие каждого продукта и добавляем только если его нет в базе
         for title, description, price in products:
             await connection.execute("""
                 INSERT INTO Products (title, description, price)
@@ -71,7 +70,7 @@ dp = Dispatcher(storage=storage)
 async def on_startup(dp: Dispatcher):
     pool = await create_pool()
     await initiate_db(pool)
-    await populate_products(pool)  # Заполняем таблицу продуктами
+    await populate_products(pool)
     dp['db_pool'] = pool
     print("База данных инициализирована, продукты добавлены.")
 
