@@ -13,6 +13,7 @@ catalog_kb.row(InlineKeyboardButton(text="Средняя игра", callback_dat
 catalog_kb.row(InlineKeyboardButton(text="Большая игра", callback_data="large"))
 catalog_kb.row(InlineKeyboardButton(text="Огромная игра", callback_data="superlarge"))
 catalog_kb.row(InlineKeyboardButton(text="Другие предложения", callback_data="behinde"))
+catalog_kb.adjust(4)
 catalog_markup = catalog_kb.as_markup()
 
 
