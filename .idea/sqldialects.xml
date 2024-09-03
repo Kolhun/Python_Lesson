@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/les_54_1_sqlpostgressBegin.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_54_2_sqlpostgressContinue.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_55_1_sqlpostgress.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_55_2_sqlpostgressTask.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_57_4_telegramBot_sql_data.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_58_telegramBot_products.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/les_59_telegramBot_ORM.py" dialect="GenericSQL" />
+  </component>
+</project>

@@ -8,8 +8,7 @@ from aiogram.filters import Command
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.utils.keyboard import ReplyKeyboardMarkup, InlineKeyboardBuilder, InlineKeyboardButton, KeyboardButton
-import config
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from aiogram.fsm.context import FSMContext
 
 import config
@@ -71,13 +70,14 @@ dp = Dispatcher(storage=storage)
 async def on_startup(dispatcher):
     await initiate_db()
 
-# Кнопки главного меню
-main_menu = ReplyKeyboardMarkup(resize_keyboard=True)
-main_menu.add(KeyboardButton("Регистрация"))
+main_menu = ReplyKeyboardBuilder()
+
+main_menu.button(text="Регистрация")
+main_menu_markup = main_menu.as_markup(resize_keyboard=True)
 
 @dp.message(Command("start"))
 async def send_welcome(message: types.Message):
-    await message.reply("Добро пожаловать! Выберите действие:", reply_markup=main_menu)
+    await message.reply("Добро пожаловать! Выберите действие:", reply_markup=main_menu_markup)
 
 # Классы состояний и обработка регистрации
 class RegistrationState(StatesGroup):
@@ -86,11 +86,11 @@ class RegistrationState(StatesGroup):
     age = State()
 
 @dp.message(F.text == "Регистрация")
-async def sing_up(message: types.Message):
+async def sing_up(message: types.Message, state: FSMContext):
     await message.answer("Введите имя пользователя (только латинский алфавит):")
-    await RegistrationState.username.set()
+    await state.set_state(RegistrationState.username)
 
-@dp.message(state=RegistrationState.username)
+@dp.message(RegistrationState.username)
 async def set_username(message: types.Message, state: FSMContext):
     username = message.text.strip()
     if not username.isalpha():
@@ -102,16 +102,16 @@ async def set_username(message: types.Message, state: FSMContext):
     else:
         await state.update_data(username=username)
         await message.reply("Введите свой email:")
-        await RegistrationState.email.set()
+        await state.set_state(RegistrationState.email)
 
-@dp.message(state=RegistrationState.email)
+@dp.message(RegistrationState.email)
 async def set_email(message: types.Message, state: FSMContext):
     email = message.text.strip()
     await state.update_data(email=email)
     await message.reply("Введите свой возраст:")
-    await RegistrationState.age.set()
+    await state.set_state(RegistrationState.age)
 
-@dp.message(state=RegistrationState.age)
+@dp.message(RegistrationState.age)
 async def set_age(message: types.Message, state: FSMContext):
     age_text = message.text.strip()
     if not age_text.isdigit():
@@ -125,13 +125,12 @@ async def set_age(message: types.Message, state: FSMContext):
 
     await add_user(username, email, age)
     await message.reply(f"Регистрация завершена! Ваш баланс: 1000")
-    await state.finish()
+    await state.clear()
 
 async def main():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     await on_startup(dp)
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
