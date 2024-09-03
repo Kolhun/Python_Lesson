@@ -66,7 +66,6 @@ bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 
-# Инициализация базы данных
 async def on_startup(dispatcher):
     await initiate_db()
 
@@ -79,7 +78,6 @@ main_menu_markup = main_menu.as_markup(resize_keyboard=True)
 async def send_welcome(message: types.Message):
     await message.reply("Добро пожаловать! Выберите действие:", reply_markup=main_menu_markup)
 
-# Классы состояний и обработка регистрации
 class RegistrationState(StatesGroup):
     username = State()
     email = State()
