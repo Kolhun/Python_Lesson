@@ -88,9 +88,10 @@ async def list_products(message: Message):
         await message.answer("В данный момент нет доступных продуктов.")
         return
 
-    response = "Доступные продукты:\n\n"
+    # response = "Доступные продукты:\n\n"
+    response = None
     for product in products:
-        response += f"Название: {product['title']} | Описание: {product['description']} | Цена: {product['price']}\n"
+        response = f"Название: {product['title']} | Описание: {product['description']} | Цена: {product['price']}\n"
 
     await message.answer(response)
 
