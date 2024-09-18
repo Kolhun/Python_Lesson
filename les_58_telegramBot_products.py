@@ -30,7 +30,8 @@ async def initiate_db(pool: asyncpg.Pool):
                 id SERIAL PRIMARY KEY,
                 title TEXT NOT NULL,
                 description TEXT,
-                price INTEGER NOT NULL
+                price INTEGER NOT NULL,
+                img_path TEXT
             );
         """)
 
@@ -41,20 +42,21 @@ async def get_all_products(pool: asyncpg.Pool):
 async def populate_products(pool: asyncpg.Pool):
     async with pool.acquire() as connection:
         products = [
-            ('Продукт 1', 'Описание продукта 1', 100),
-            ('Продукт 2', 'Описание продукта 2', 200),
-            ('Продукт 3', 'Описание продукта 3', 300),
-            ('Продукт 4', 'Описание продукта 4', 400),
+            ('Продукт 1', 'Описание продукта 1', 100, "img_price_1.png"),
+            ('Продукт 2', 'Описание продукта 2', 200, "img_price_2.png"),
+            ('Продукт 3', 'Описание продукта 3', 300, "img_price_3.png"),
+            ('Продукт 4', 'Описание продукта 4', 400, "img_price_4.png"),
+            ('Продукт 5', 'Описание продукта 5', 500, "img_price_5.png")
         ]
 
-        for title, description, price in products:
+        for title, description, price, img_path in products:
             await connection.execute("""
-                INSERT INTO Products (title, description, price)
-                SELECT $1, $2, $3
+                INSERT INTO Products (title, description, price, img_path)
+                SELECT $1, $2, $3, $4
                 WHERE NOT EXISTS (
                     SELECT 1 FROM Products WHERE title = $1
                 )
-            """, title, description, price)
+            """, title, description, price, img_path)
         
         
 
@@ -88,12 +90,20 @@ async def list_products(message: Message):
         await message.answer("В данный момент нет доступных продуктов.")
         return
 
-    # response = "Доступные продукты:\n\n"
-    response = None
     for product in products:
-        response = f"Название: {product['title']} | Описание: {product['description']} | Цена: {product['price']}\n"
+        title = product['title']
+        description = product['description']
+        price = product['price']
+        img_path = product['img_path']
 
-    await message.answer(response)
+        response = f"<b>Название:</b> {title}\n<b>Описание:</b> {description}\n<b>Цена:</b> {price} ₽"
+
+
+        try:
+            photo = FSInputFile(img_path)
+            await message.answer_photo(photo=photo, caption=response, parse_mode="HTML")
+        except FileNotFoundError:
+            await message.answer(f"Изображение для {title} не найдено.\n\n{response}")
 
 async def main():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)

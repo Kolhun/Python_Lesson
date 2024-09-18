@@ -3,9 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>919</IntrospectionStateNumber>
+      <IntrospectionStateNumber>933</IntrospectionStateNumber>
       <ServerVersion>16.3</ServerVersion>
-      <StartupTime>1725349305</StartupTime>
+      <StartupTime>1726669418</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -230,7 +230,7 @@ false America/Rio_Branco
 false America/Rosario
 true America/Santa_Isabel
 false America/Santarem
-false America/Santiago
+true America/Santiago
 false America/Santo_Domingo
 false America/Sao_Paulo
 true America/Scoresbysund
@@ -428,7 +428,7 @@ false CHAST
 false CHUT
 false CKT
 true CLST
-false CLT
+true CLT
 false COT
 false CST
 true CST6CDT
@@ -441,13 +441,13 @@ true Canada/Newfoundland
 true Canada/Pacific
 false Canada/Saskatchewan
 false Canada/Yukon
-false Chile/Continental
-false Chile/EasterIsland
+true Chile/Continental
+true Chile/EasterIsland
 true Cuba
 false DAVT
 false DDUT
-false EASST
-false EAST
+true EASST
+true EAST
 false EAT
 true EDT
 true EEST
@@ -683,7 +683,7 @@ false Pacific/Auckland
 false Pacific/Bougainville
 false Pacific/Chatham
 false Pacific/Chuuk
-false Pacific/Easter
+true Pacific/Easter
 false Pacific/Efate
 false Pacific/Enderbury
 false Pacific/Fakaofo
@@ -806,7 +806,7 @@ true posixrules
 13255||10|C|G
 13255||-9223372036854775808|U|G
 13255||10|U|G</Grants>
-      <IntrospectionStateNumber>919</IntrospectionStateNumber>
+      <IntrospectionStateNumber>933</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>admin</OwnerName>
     </database>
@@ -4225,8 +4225,8 @@ true posixrules
     <schema id="264" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>919</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-09-03.07:44:08</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>933</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-09-18.14:32:13</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4249,10 +4249,10 @@ true posixrules
     </sequence>
     <sequence id="267" parent="264" name="products_id_seq">
       <DasType>integer|0s</DasType>
-      <ObjectId>16479</ObjectId>
+      <ObjectId>16503</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>911</StateNumber>
+      <StateNumber>927</StateNumber>
       <OwnerName>admin</OwnerName>
     </sequence>
     <sequence id="268" parent="264" name="users_id_seq">
@@ -4276,8 +4276,8 @@ true posixrules
       <OwnerName>admin</OwnerName>
     </table>
     <table id="271" parent="264" name="products">
-      <ObjectId>16480</ObjectId>
-      <StateNumber>911</StateNumber>
+      <ObjectId>16504</ObjectId>
+      <StateNumber>927</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
@@ -4389,47 +4389,53 @@ true posixrules
       <DefaultExpression>nextval(&apos;products_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>911</StateNumber>
-      <SequenceId>16479</SequenceId>
+      <StateNumber>927</StateNumber>
+      <SequenceId>16503</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="287" parent="271" name="title">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>911</StateNumber>
+      <StateNumber>927</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="288" parent="271" name="description">
       <DasType>text|0s</DasType>
       <Position>3</Position>
-      <StateNumber>911</StateNumber>
+      <StateNumber>927</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="289" parent="271" name="price">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>911</StateNumber>
+      <StateNumber>927</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="290" parent="271" name="products_pkey">
+    <column id="290" parent="271" name="img_path">
+      <DasType>text|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>927</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="291" parent="271" name="products_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16486</ObjectId>
+      <ObjectId>16510</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>911</StateNumber>
+      <StateNumber>927</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="291" parent="271" name="products_pkey">
+    <key id="292" parent="271" name="products_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16487</ObjectId>
+      <ObjectId>16511</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>911</StateNumber>
-      <UnderlyingIndexId>16486</UnderlyingIndexId>
+      <StateNumber>927</StateNumber>
+      <UnderlyingIndexId>16510</UnderlyingIndexId>
     </key>
-    <column id="292" parent="272" name="id">
+    <column id="293" parent="272" name="id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4438,28 +4444,28 @@ true posixrules
       <SequenceId>16489</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="293" parent="272" name="username">
+    <column id="294" parent="272" name="username">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>916</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="294" parent="272" name="email">
+    <column id="295" parent="272" name="email">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>916</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="295" parent="272" name="age">
+    <column id="296" parent="272" name="age">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>916</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="296" parent="272" name="balance">
+    <column id="297" parent="272" name="balance">
       <DasType>integer|0s</DasType>
       <DefaultExpression>1000</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4467,7 +4473,7 @@ true posixrules
       <StateNumber>916</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="297" parent="272" name="users_pkey">
+    <index id="298" parent="272" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16497</ObjectId>
@@ -4476,7 +4482,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="298" parent="272" name="users_username_key">
+    <index id="299" parent="272" name="users_username_key">
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16499</ObjectId>
@@ -4487,7 +4493,7 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="299" parent="272" name="users_email_key">
+    <index id="300" parent="272" name="users_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16501</ObjectId>
@@ -4498,20 +4504,20 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="300" parent="272" name="users_pkey">
+    <key id="301" parent="272" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16498</ObjectId>
       <Primary>1</Primary>
       <StateNumber>916</StateNumber>
       <UnderlyingIndexId>16497</UnderlyingIndexId>
     </key>
-    <key id="301" parent="272" name="users_username_key">
+    <key id="302" parent="272" name="users_username_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16500</ObjectId>
       <StateNumber>916</StateNumber>
       <UnderlyingIndexId>16499</UnderlyingIndexId>
     </key>
-    <key id="302" parent="272" name="users_email_key">
+    <key id="303" parent="272" name="users_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16502</ObjectId>
       <StateNumber>916</StateNumber>
