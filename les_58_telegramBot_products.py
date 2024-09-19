@@ -1,12 +1,12 @@
 import asyncio
 import logging
-import random
 import sys
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.types import Message, FSInputFile
+from aiogram.types import Message, FSInputFile, CallbackQuery
+from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton
 
 import config
 import asyncpg
@@ -19,6 +19,8 @@ db_params = {
     'host': os.getenv('POSTGRES_HOST', 'localhost'),
     'port': os.getenv('POSTGRES_PORT', '5432')
 }
+
+products = []
 
 def create_dsn(params):
     return f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['dbname']}"
@@ -57,8 +59,6 @@ async def populate_products(pool: asyncpg.Pool):
                     SELECT 1 FROM Products WHERE title = $1
                 )
             """, title, description, price, img_path)
-        
-        
 
 async def create_pool():
     dsn = create_dsn(db_params)
@@ -90,6 +90,8 @@ async def list_products(message: Message):
         await message.answer("В данный момент нет доступных продуктов.")
         return
 
+    kb = InlineKeyboardBuilder()
+
     for product in products:
         title = product['title']
         description = product['description']
@@ -98,18 +100,26 @@ async def list_products(message: Message):
 
         response = f"<b>Название:</b> {title}\n<b>Описание:</b> {description}\n<b>Цена:</b> {price} ₽"
 
-
         try:
             photo = FSInputFile(img_path)
             await message.answer_photo(photo=photo, caption=response, parse_mode="HTML")
         except FileNotFoundError:
             await message.answer(f"Изображение для {title} не найдено.\n\n{response}")
 
+        kb.add(InlineKeyboardButton(text=f"Купить {title}", callback_data=title))
+
+    kb.adjust(len(products))
+    await message.answer("Выберите товар для покупки:", reply_markup=kb.as_markup())
+
+@dp.callback_query()
+async def handle_product_purchase(callback: CallbackQuery):
+    await callback.message.answer(f"Товар '{callback.data}' успешно куплен!")
+    await callback.answer()
+
 async def main():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     await on_startup(dp)
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
