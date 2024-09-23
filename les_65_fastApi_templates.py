@@ -10,6 +10,7 @@ templates = Jinja2Templates(directory="templates")
 
 users = []
 
+#uvicorn les_65_fastApi_templates:app --reload
 
 class User(BaseModel):
     id: int
