@@ -2,7 +2,6 @@ import os
 import psycopg2
 from psycopg2 import sql
 
-# Параметры для подключения к базе данных
 db_params = {
     'dbname': os.getenv('POSTGRES_DB', 'postgres'),
     'user': os.getenv('POSTGRES_USER', 'admin'),
