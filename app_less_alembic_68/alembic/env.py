@@ -6,19 +6,14 @@ from alembic import context
 import sys
 import os
 
-# Добавляем путь к приложениям для импорта моделей
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from ...app_less_67.backends import Base
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging.
 fileConfig(config.config_file_name)
 
-# Добавляем метаданные моделей
 target_metadata = Base.metadata
 
 def run_migrations_offline():
