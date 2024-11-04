@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateTable
-from .models import User, Task
-from .backends.bd import Base
-from .routers import task, user
+from models import User, Task
+from backends.bd import Base
+from routers import task, user
 
 
 #$env:PYTHONPATH="C:\VisualDevelop\Python_Lesson"
+#alembic init app/migrations
+#alembic revision --autogenerate -m "Initial migration"
 #alembic upgrade head
 #uvicorn main:app --reload
 

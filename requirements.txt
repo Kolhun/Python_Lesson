@@ -19,3 +19,4 @@ fastapi==0.115.0
 uvicorn==0.30.6
 asyncpg
 alembic==1.13.3
+python-slugify==8.0.4

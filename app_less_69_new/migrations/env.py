@@ -2,8 +2,7 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from ..backends.bd import Base
-from ..models import User, Task
+
 from alembic import context
 
 # this is the Alembic Config object, which provides
@@ -15,6 +14,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+from app_less_69_new.backends.bd import Base
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
