@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from ..backends.bd import Base
+from app_less_69_new.backends.bd import Base
 
 
 class Task(Base):
     __tablename__ = 'tasks'
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)

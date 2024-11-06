@@ -1,17 +1,27 @@
+# в файле schemas.py
 from pydantic import BaseModel
+from typing import List, Optional
 
-class CreateUser(BaseModel):
+class UserBase(BaseModel):
     username: str
     firstname: str
     lastname: str
     age: int
+
+class CreateUser(UserBase):
+    pass
 
 class UpdateUser(BaseModel):
     firstname: str
     lastname: str
     age: int
 
-# Схемы для задачи
+class UserResponse(UserBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
 class CreateTask(BaseModel):
     title: str
     content: str
@@ -21,3 +31,12 @@ class UpdateTask(BaseModel):
     title: str
     content: str
     priority: int
+
+class TaskResponse(BaseModel):
+    id: int
+    title: str
+    content: str
+    priority: int
+
+    class Config:
+        orm_mode = True
